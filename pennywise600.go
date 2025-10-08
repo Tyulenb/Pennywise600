@@ -1,7 +1,5 @@
 package main
 
-import "fmt"
-
 //struct of processor "Pennywise600"
 type Pennywise600 struct {
     //memory of commands
@@ -18,7 +16,22 @@ type Pennywise600 struct {
 
 func NewPennywise600() *Pennywise600 {
     //TO DO initialization
-    return &Pennywise600{}
+    p := &Pennywise600{
+        pc: 0,
+        cmd_reg: 0,
+    }
+
+    for i := range len(p.cmd_mem) {
+        p.cmd_mem[i] = 0
+    }
+    for i := range len(p.mem) {
+        p.mem[i] = 0
+    }
+    for i := range len(p.RF) {
+        p.RF[i] = 0
+    }
+    initCommandTable(p)
+    return p
 }
 
 func (p *Pennywise600) EmulateCycle() {
@@ -99,6 +112,20 @@ func (p *Pennywise600) JUMP_LESS() {
 func (p *Pennywise600) JMP() {
     adr_to_jump := (p.cmd_reg&0x0FFC0000) >> 18
     p.pc = uint16(adr_to_jump)
+}
+
+var commandMap map[uint16]func()
+func initCommandTable(p *Pennywise600) {
+    commandMap[0x0] = p.NOP
+    commandMap[0x1] = p.LTM
+    commandMap[0x2] = p.MTR
+    commandMap[0x3] = p.RTR
+    commandMap[0x4] = p.SUB
+    commandMap[0x5] = p.JUMP_LESS
+    commandMap[0x6] = p.MTRK
+    commandMap[0x7] = p.RTMK
+    commandMap[0x8] = p.JMP
+    commandMap[0x9] = p.SUM
 }
 
 func main(){
