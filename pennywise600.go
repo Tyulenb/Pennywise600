@@ -37,8 +37,7 @@ func NewPennywise600() *Pennywise600 {
 func (p *Pennywise600) EmulateCycle() {
     p.cmd_reg = p.cmd_mem[p.pc]
     p.pc += 1
-    //to do command routing
-    if ((p.cmd_reg&0xF0000000)>>28 == 0x3) {}
+    commandMap[uint16((p.cmd_reg&0xF0000000)>>28)]()
 }
 
 //DO NOTHING
