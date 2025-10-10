@@ -11,14 +11,20 @@ import (
 
 func main() {
     args := os.Args
+    path := "program.txt"
     debugMode := false
     if len(args) >= 2 {
-        if args[1] == "d" {
+        path = args[1]
+        if len(args) > 2 && args[2] == "d" {
             debugMode = true
         }
+    }else {
+        fmt.Println("FORMAT cmd.go 'path to your program' 'd (optionaly for debug)'\n"+
+        "go run cmd.go program.txt\ngo run cmd.go program.txt d (for debug)")
+        return
     }
     p := pennywise600.NewPennywise600()
-    code, err := assembler.Assemble("program.txt")
+    code, err := assembler.Assemble(path)
     if err != nil {
         log.Fatalf("Error during code assembling: %v", err)
     }
@@ -35,7 +41,7 @@ func Run(p *pennywise600.Pennywise600) {
         p.EmulateCycle()
     }
     mem := p.GetMem()
-    fmt.Println(mem[0:10])
+    fmt.Println("MEM[0:10]",mem[0:10])
 }
 
 func Debug(p *pennywise600.Pennywise600) {
