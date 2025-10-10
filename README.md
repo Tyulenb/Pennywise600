@@ -25,7 +25,10 @@ Pennywise600 is a simple processor emulator designed for educational purposes, a
 | `MTRK`      | Load register from memory by address from register | [OpCode][adr_r1][adr_r2] | RF[adr_r1] = mem[RF[adr_r2]]                       |
 | `RTMK`      | Load memory from register by address from register | [OpCode][adr_r1][adr_r2] | mem[RF[adr_r1]] = RF[adr_r2]                       |
 | `JMP`       | Jump to another operation                | [OpCode][adr_to_jump]          | pc = adr_to_jump                                   |
-| `SUM`       | Add                                     | [OpCode][adr_r1][adr_r2][adr_r3]| RF[adr_r3] = RF[adr_r2]+RF[adr_r3]|
+| `SUM`       | Add                                     | [OpCode][adr_r1][adr_r2][adr_r3]| RF[adr_r3] = RF[adr_r1]+RF[adr_r2]|
+
+## Program Example
+[Insertion_sort](https://github.com/Tyulenb/Pennywise600/blob/main/insertion_sort.txt)
 
 ## Installation
 ### Requirements
