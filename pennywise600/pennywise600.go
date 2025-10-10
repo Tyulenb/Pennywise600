@@ -1,4 +1,6 @@
-package main
+package pennywise600 
+
+import "log"
 
 // struct of processor "Pennywise600"
 type Pennywise600 struct {
@@ -14,22 +16,15 @@ type Pennywise600 struct {
 	cmd_reg uint32
 }
 
+var commandMap = make(map[uint16]func())
+
 func NewPennywise600() *Pennywise600 {
-	//TO DO initialization
+	//initialization
 	p := &Pennywise600{
 		pc:      0,
 		cmd_reg: 0,
 	}
-
-	for i := range len(p.cmd_mem) {
-		p.cmd_mem[i] = 0
-	}
-	for i := range len(p.mem) {
-		p.mem[i] = 0
-	}
-	for i := range len(p.RF) {
-		p.RF[i] = 0
-	}
+    p.RF[1] = 1
 	initCommandTable(p)
 	return p
 }
@@ -100,9 +95,7 @@ func (p *Pennywise600) JUMP_LESS() {
 	adr_r1 := (p.cmd_reg & 0x0F000000) >> 24
 	adr_r2 := (p.cmd_reg & 0x00F00000) >> 20
 	adr_to_jump := (p.cmd_reg & 0x000FFC00) >> 10
-	if p.RF[adr_r1] < p.RF[adr_r2] {
-		p.pc = p.pc + 1
-	} else {
+	if p.RF[adr_r1] >= p.RF[adr_r2] {
 		p.pc = uint16(adr_to_jump)
 	}
 }
@@ -113,7 +106,26 @@ func (p *Pennywise600) JMP() {
 	p.pc = uint16(adr_to_jump)
 }
 
-var commandMap map[uint16]func()
+func (p *Pennywise600) Load(code []uint32) {
+    if len(code) > len(p.cmd_mem) {
+        log.Fatal("Program is too long")
+    }
+    for i := range code {
+        p.cmd_mem[i] = code[i]
+    }
+}
+
+//SOME DEBUG PURPOSE FUNCTIONS
+func (p *Pennywise600) GetMem() [1024]uint16 {
+    return p.mem
+}
+func (p *Pennywise600) GetPc() uint16 {
+    return p.pc
+}
+func (p *Pennywise600) GetCurCommand() uint32 {
+    return p.cmd_mem[p.pc]
+}
+
 
 func initCommandTable(p *Pennywise600) {
 	commandMap[0x0] = p.NOP

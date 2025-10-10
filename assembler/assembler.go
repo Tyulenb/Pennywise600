@@ -1,4 +1,4 @@
-package main
+package assembler 
 
 import (
 	"bufio"
@@ -26,7 +26,7 @@ func sep(c rune) bool {
 	return !unicode.IsNumber(c) && !unicode.IsLetter(c) && c != '_'
 }
 
-func assemble(path string) ([]uint32, error) {
+func Assemble(path string) ([]uint32, error) {
 	assembler, err := os.Open(path)
 	if err != nil {
 		return nil, err
@@ -222,8 +222,4 @@ func asbSUM(tokens []string) (uint32, error) {
 	} else {
 		return 0, fmt.Errorf("Unexpected amount of operands for SUM command, expected 4, but got %v", len(tokens))
 	}
-}
-
-func main() {
-	fmt.Println(assemble("program.txt"))
 }
