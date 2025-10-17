@@ -27,18 +27,6 @@ Pennywise600 is a simple processor emulator designed for educational purposes, a
 | `JMP`       | Jump to another operation                | [OpCode][adr_to_jump]          | pc = adr_to_jump                                   |
 | `SUM`       | Add                                     | [OpCode][adr_r1][adr_r2][adr_r3]| RF[adr_r3] = RF[adr_r1]+RF[adr_r2]|
 
-|### Operand description
-| Operand    | Size    |
-|------------|---------|
-| OP         | 4 bytes |
-| adr_m      | 10 bytes|
-| literal    | 10 bytes|
-| adr_r1     | 4 bytes |
-| adr_r2     | 4 bytes |
-| adr_r3     | 4 bytes |
-| adr_to_jump| 10 bytes|
-| adr_to_jump| 10 bytes|
-
 ## Program Example
 [Insertion_sort](https://github.com/Tyulenb/Pennywise600/blob/main/insertion_sort.txt)
 
