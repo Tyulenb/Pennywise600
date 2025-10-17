@@ -27,7 +27,7 @@ Pennywise600 is a simple processor emulator designed for educational purposes, a
 | `JMP`       | Jump to another operation                | [OpCode][adr_to_jump]          | pc = adr_to_jump                                   |
 | `SUM`       | Add                                     | [OpCode][adr_r1][adr_r2][adr_r3]| RF[adr_r3] = RF[adr_r1]+RF[adr_r2]|
 
-### Operand description
+### Operand Description
 
 | Operand    | Size    |
 |------------|---------|
