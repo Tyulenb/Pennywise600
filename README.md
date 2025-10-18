@@ -31,14 +31,14 @@ Pennywise600 is a simple processor emulator designed for educational purposes, a
 
 | Operand    | Size    |
 |------------|---------|
-| OP         | 4 bytes |
-| adr_m      | 10 bytes|
-| literal    | 10 bytes|
-| adr_r1     | 4 bytes |
-| adr_r2     | 4 bytes |
-| adr_r3     | 4 bytes |
-| adr_to_jump| 10 bytes|
-| adr_to_jump| 10 bytes|
+| OP         | 4 bits  |
+| adr_m      | 10 bits |
+| literal    | 10 bits |
+| adr_r1     | 4 bits  |
+| adr_r2     | 4 bits  |
+| adr_r3     | 4 bits  |
+| adr_to_jump| 10 bits |
+| adr_to_jump| 10 bits |
 
 ## Program Example
 [Insertion_sort](https://github.com/Tyulenb/Pennywise600/blob/main/insertion_sort.txt)
