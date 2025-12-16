@@ -30,9 +30,12 @@ func NewPennywise600() *Pennywise600 {
 }
 
 func (p *Pennywise600) EmulateCycle() {
+    if int(p.pc) >= len(p.cmd_mem) {
+        return
+    }
 	p.cmd_reg = p.cmd_mem[p.pc]
 	p.pc += 1
-	commandMap[uint16((p.cmd_reg&0xF0000000)>>28)]()
+    commandMap[uint16((p.cmd_reg&0xF0000000)>>28)]()
 }
 
 // DO NOTHING
